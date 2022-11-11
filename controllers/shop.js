@@ -5,32 +5,20 @@ const generic = require('../util/output.service');
 exports.getProducts = (req, res, next) => {
   console.log("*********getProducts************");
   Product.fetchAll(products => {
-    res.render('shop/product-list', {
-      prods: products,
-      pageTitle: 'All Products',
-      path: '/products'
-    });
+    res.json(generic.jsonRes(200, "", product));
   });
 };
 
 exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   Product.findById(prodId, product => {
-    res.render('shop/product-detail', {
-      product: product,
-      pageTitle: product.title,
-      path: '/products'
-    });
+    res.json(generic.jsonRes(200, "", product));
   });
 };
 
 exports.getIndex = (req, res, next) => {
   Product.fetchAll(products => {
-    res.render('shop/index', {
-      prods: products,
-      pageTitle: 'Shop',
-      path: '/'
-    });
+    res.json(generic.jsonRes(200, "", product));
   });
 };
 
@@ -46,11 +34,8 @@ exports.getCart = (req, res, next) => {
           cartProducts.push({ productData: product, qty: cartProductData.qty });
         }
       }
-      res.render('shop/cart', {
-        path: '/cart',
-        pageTitle: 'Your Cart',
-        products: cartProducts
-      });
+      res.json(generic.jsonRes(200, "", cartProducts));
+
     });
   });
 };
@@ -60,27 +45,28 @@ exports.postCart = (req, res, next) => {
   Product.findById(prodId, product => {
     Cart.addProduct(prodId, product.price);
   });
-  res.redirect('/cart');
+  res.json(generic.jsonRes(200, "", cartProducts));
 };
 
-exports.postCartDeleteProduct = (req, res, next) => {
-  const prodId = req.body.productId;
-  Product.findById(prodId, product => {
-    Cart.deleteProduct(prodId, product.price);
-    res.redirect('/cart');
-  });
-};
+// exports.postCartDeleteProduct = (req, res, next) => {
+//   const prodId = req.body.productId;
+//   Product.findById(prodId, product => {
+//     Cart.deleteProduct(prodId, product.price);
+//     res.redirect('/cart');
+//   });
+// };
 
-exports.getOrders = (req, res, next) => {
-  res.render('shop/orders', {
-    path: '/orders',
-    pageTitle: 'Your Orders'
-  });
-};
+// exports.getOrders = (req, res, next) => {
+//   res.json(generic.jsonRes(200, "", cartProducts));
+//   // res.render('shop/orders', {
+//   //   path: '/orders',
+//   //   pageTitle: 'Your Orders'
+//   // });
+// };
 
-exports.getCheckout = (req, res, next) => {
-  res.render('shop/checkout', {
-    path: '/checkout',
-    pageTitle: 'Checkout'
-  });
-};
+// exports.getCheckout = (req, res, next) => {
+//   res.render('shop/checkout', {
+//     path: '/checkout',
+//     pageTitle: 'Checkout'
+//   });
+// };

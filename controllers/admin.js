@@ -16,25 +16,20 @@ exports.postAddProduct = (req, res, next) => {
   const description = req.body.description;
   const product = new Product(null, title, imageUrl, description, price);
   product.save();
-  res.redirect('/');
+  res.json(generic.jsonRes(200, "Record saved successfully!!!", product));
 };
 
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
   if (!editMode) {
-    return res.redirect('/');
+    res.json(generic.jsonRes(404, "edit parm required!!!"));
   }
   const prodId = req.params.productId;
   Product.findById(prodId, product => {
     if (!product) {
-      return res.redirect('/');
+      res.json(generic.jsonRes(404, "record not found!!!"));
     }
-    res.render('admin/edit-product', {
-      pageTitle: 'Edit Product',
-      path: '/admin/edit-product',
-      editing: editMode,
-      product: product
-    });
+    res.json(generic.jsonRes(200, "", product));
   });
 };
 
@@ -52,7 +47,7 @@ exports.postEditProduct = (req, res, next) => {
     updatedPrice
   );
   updatedProduct.save();
-  res.redirect('/admin/products');
+  res.json(generic.jsonRes(200, "Record update successfully!!!", updatedProduct));
 };
 
 exports.getProducts = (req, res, next) => {
@@ -64,5 +59,5 @@ exports.getProducts = (req, res, next) => {
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   Product.deleteById(prodId);
-  res.redirect('/admin/products');
+  res.json(generic.jsonRes(200, "Record deleted successfully!!!", null));
 };
