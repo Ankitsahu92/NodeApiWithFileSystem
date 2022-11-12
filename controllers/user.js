@@ -7,7 +7,8 @@ exports.Add = async (req, res, next) => {
     const email = req.body.email;
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(req.body.password, salt);
-    const item = new User(null, name, email, password, salt);
+    const isActive = true;
+    const item = new User(null, name, email, password, salt, isActive);
     item.save((resp) => {
         res.json(resp);
     });
@@ -35,3 +36,15 @@ exports.deleteById = (req, res, next) => {
     User.deleteById(id, resp => res.json(resp));
 };
 
+
+
+exports.updateUser = async (req, res, next) => {
+    const body = req.body;
+    if (body && body.password) {
+        const salt = await bcrypt.genSalt(10);
+        body.salt = salt;
+        body.password = await bcrypt.hash(body.password, salt);
+    }
+    console.log(body, "body");
+    User.updateUserDetailsById(body, resp => res.json(resp));
+};

@@ -16,13 +16,14 @@ const getFromFile = (cb) => {
 };
 
 module.exports = class User {
-    constructor(id, name, email, password, salt) {
+    constructor(id, name, email, password, salt, isActive) {
 
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.salt = salt
+        this.isActive = isActive;
     }
 
     save(cb) {
@@ -78,4 +79,24 @@ module.exports = class User {
             cb(finditem);
         });
     }
+
+    static updateUserDetailsById(userObj, cb) {
+        getFromFile((item) => {
+            const findIndex = item.findIndex((p) => p.id === userObj.id);
+            console.log("findIndex", findIndex);
+            if (findIndex >= 0) {
+                const finditem = item[findIndex];
+                Object.keys(userObj).map(k => finditem[k] = userObj[k]);
+                const updateditem = [...item];
+                updateditem[findIndex] = finditem;
+                fs.writeFile(p, JSON.stringify(updateditem), (err) => {
+                    cb(generic.jsonRes(400, "Something went wrong!!!"));
+                });
+                cb(generic.jsonRes(200, "Record updated successfully!!!"));
+            } else {
+                cb(generic.jsonRes(400, "Something went wrong!!!"));
+            }
+        });
+    }
+
 };

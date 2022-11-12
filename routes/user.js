@@ -31,4 +31,13 @@ router.delete(`/:id`,
         param('id', "id is Required").exists()
     ], validateShema, controller.deleteById);
 
+router.put(
+    `/`,
+    [
+        check("id", "id is required").exists()
+    ],
+    validateShema,
+    controller.updateUser
+);
+
 module.exports = router;
