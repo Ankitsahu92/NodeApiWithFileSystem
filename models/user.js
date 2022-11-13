@@ -18,13 +18,13 @@ const getFromFile = (cb) => {
 };
 
 module.exports = class User {
-    constructor(id, name, userName, password, isActive) {
-
+    constructor(id, name, userName, password, isActive, userType) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
         this.isActive = isActive;
+        this.userType = userType;
     }
 
     save(cb) {
@@ -119,7 +119,8 @@ module.exports = class User {
                 const payload = {
                     user: {
                         id: user.id,
-                        name: user.name
+                        name: user.name,
+                        userType: user.userType
                     },
                 };
 

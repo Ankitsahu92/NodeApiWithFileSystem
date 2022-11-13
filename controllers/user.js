@@ -8,7 +8,8 @@ exports.Add = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const password = await bcrypt.hash(req.body.password, salt);
     const isActive = true;
-    const item = new User(null, name, userName, password, isActive);
+    const userType = req.body.userType;
+    const item = new User(null, name, userName, password, isActive, userType);
     item.save((resp) => {
         res.json(resp);
     });

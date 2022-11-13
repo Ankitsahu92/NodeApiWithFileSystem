@@ -1,10 +1,18 @@
 [
   {
-    "id": "3f0e7e1a-4251-4c16-afe7-a4e01a027650",
-    "name": "Ankitsahu",
-    "userName": "sahu@gmail.com",
-    "password": "$2a$10$6mvD0G6dSDzeHt.LZDHYN.sIWKpzeT3AWWetKzPepOW2CRwjTjN6m",
-    "salt": "$2a$10$6mvD0G6dSDzeHt.LZDHYN.",
-    "isActive": true
+    "id": "7bba49a2-d29c-4f7b-8f7e-5f4c7843f61d",
+    "name": "Ankit Sahu",
+    "userName": "sahua4",
+    "password": "$2a$10$62UM3oF8Wzd7gcA4gJY0K.bKZCY/0piaXtt8jpQ/TeB80EzzUq0C2",
+    "isActive": true,
+    "userType": "customer"
+  },
+  {
+    "id": "ee9f949e-ec55-4829-a408-eff1504d1e01",
+    "name": "Ankit",
+    "userName": "admin",
+    "password": "$2a$10$yhLrBkewuUZcC35Gu83ILOmkwda0rCNdhjyTQATAol.pdra2U6el2",
+    "isActive": true,
+    "userType": "customer"
   }
 ]

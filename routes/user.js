@@ -18,10 +18,11 @@ router.post(
     [
         check("userName").exists(),
         //check("email", "Please include a valid email").isEmail(),
-        check("password", "Password is required").exists().bail().isLength({ min: 5 })
-            .withMessage('Password must be at least 5 chars long').bail()
-            .matches(/\d/)
-            .withMessage('Password must contain a number'),
+        check("password", "Password is required").exists()
+        // .bail().isLength({ min: 5 })
+        // .withMessage('Password must be at least 5 chars long').bail()
+        // .matches(/\d/)
+        // .withMessage('Password must contain a number'),
     ],
     validateShema,
     controller.Add
