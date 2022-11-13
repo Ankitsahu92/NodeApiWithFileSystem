@@ -1,7 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 const { v4: uuid } = require("uuid");
-
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const config = require('config');
 const generic = require("../util/output.service");
 const p = path.join(path.dirname(__dirname), "data", "user.json");
 
@@ -16,13 +18,12 @@ const getFromFile = (cb) => {
 };
 
 module.exports = class User {
-    constructor(id, name, email, password, salt, isActive) {
+    constructor(id, name, userName, password, isActive) {
 
         this.id = id;
         this.name = name;
-        this.email = email;
+        this.userName = userName;
         this.password = password;
-        this.salt = salt
         this.isActive = isActive;
     }
 
@@ -37,9 +38,9 @@ module.exports = class User {
                 });
                 cb(generic.jsonRes(200, "Record updated successfully!!!"));
             } else {
-                const checkEmailExist = item.find((p) => p.email === this.email);
-                if (checkEmailExist) {
-                    cb(generic.jsonRes(400, "Email already exists!!!"));
+                const checkUserNameExist = item.find((p) => p.userName === this.userName);
+                if (checkUserNameExist) {
+                    cb(generic.jsonRes(400, "User Name already exists!!!"));
                 } else {
                     this.id = uuid();
                     item.push(this);
@@ -99,4 +100,45 @@ module.exports = class User {
         });
     }
 
+
+    static async auth(userObj, cb) {
+        await getFromFile(async (item) => {
+            const findIndex = item.findIndex((p) => p.userName === userObj.userName);
+            if (findIndex >= 0) {
+                const user = item[findIndex];
+                if (!user) {
+                    cb(generic.jsonRes(400, "Invalid credentials!!!"));
+                }
+
+                console.log("user", user);
+                const isMatch = await bcrypt.compare(userObj.password, user.password);
+                if (!isMatch) {
+                    cb(generic.jsonRes(400, "Invalid credentials!!!"));
+                }
+
+                const payload = {
+                    user: {
+                        id: user.id,
+                        name: user.name
+                    },
+                };
+
+                jwt.sign(
+                    payload,
+                    config.get('jwtSecret'),
+                    { expiresIn: 360000 },
+                    (err, token) => {
+                        if (err) {
+                            throw err;
+                        }
+                        cb(generic.jsonRes(200, "Login successfully!!!", { token }));
+                    }
+                );
+
+
+            } else {
+                cb(generic.jsonRes(400, "User does not exist!!!"));
+            }
+        });
+    }
 };

@@ -16,7 +16,8 @@ router.get(`/:id`,
 router.post(
     `/`,
     [
-        check("email", "Please include a valid email").isEmail(),
+        check("userName").exists(),
+        //check("email", "Please include a valid email").isEmail(),
         check("password", "Password is required").exists().bail().isLength({ min: 5 })
             .withMessage('Password must be at least 5 chars long').bail()
             .matches(/\d/)
@@ -39,5 +40,7 @@ router.put(
     validateShema,
     controller.updateUser
 );
+
+
 
 module.exports = router;

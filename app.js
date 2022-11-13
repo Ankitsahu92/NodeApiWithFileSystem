@@ -9,14 +9,15 @@ const routePrefix = "/api";
 
 const adminRoutes = require('./routes/admin');
 const userRoutes = require('./routes/user');
-//const shopRoutes = require('./routes/shop');
+const auth = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(`${routePrefix}/admin`, adminRoutes);
-app.use(`${routePrefix}/user`, userRoutes);
+app.use(`${routePrefix}/users`, userRoutes);
+app.use(`${routePrefix}/auth`, auth);
 //app.use(shopRoutes);
 
 //app.use(errorController.get404);

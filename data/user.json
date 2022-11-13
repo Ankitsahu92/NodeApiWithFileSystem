@@ -1,1 +1,10 @@
-[{"id":"701daee8-b0be-4860-b410-36ad8d4c4105","name":"ankit test A Book","email":" udate passwor@gmail.com","password":"$2a$10$M4/RaezaiQXkPmY8irJOmOZPVD9MH1V430o8Uf8vCqf3Sr6P.3etS","salt":"$2a$10$M4/RaezaiQXkPmY8irJOmO","isActive":false}]
+[
+  {
+    "id": "3f0e7e1a-4251-4c16-afe7-a4e01a027650",
+    "name": "Ankitsahu",
+    "userName": "sahu@gmail.com",
+    "password": "$2a$10$6mvD0G6dSDzeHt.LZDHYN.sIWKpzeT3AWWetKzPepOW2CRwjTjN6m",
+    "salt": "$2a$10$6mvD0G6dSDzeHt.LZDHYN.",
+    "isActive": true
+  }
+]
