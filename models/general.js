@@ -38,14 +38,17 @@ module.exports = class General {
                     Object.keys(obj).map((k) => (finditem[k] = obj[k]));
                     const updateditem = [...item];
                     updateditem[findIndex] = finditem;
+                    console.log(finditem, "finditem", p);
                     fs.writeFile(p, JSON.stringify(updateditem), (err) => {
                         if (err) {
                             cb(generic.jsonRes(400, "Something went wrong!!!"));
                         }
                     });
                     cb(generic.jsonRes(200, "Record Updated Successfully!!!"));
+                    return
                 }
                 cb(generic.jsonRes(400, "Record Not Found!!!"));
+                return
             } else {
                 const id = uuid();
                 const updateditem = [...item];
@@ -53,9 +56,11 @@ module.exports = class General {
                 fs.writeFile(p, JSON.stringify(updateditem), (err) => {
                     if (err) {
                         cb(generic.jsonRes(400, "Something went wrong!!!"));
+                        return
                     }
                 });
                 cb(generic.jsonRes(201, "Record Added successfully!!!", id));
+                return
             }
         });
     }
