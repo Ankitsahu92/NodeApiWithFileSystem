@@ -18,6 +18,9 @@ app.use(bodyParser.json());
 app.use(`${routePrefix}/admin`, adminRoutes);
 app.use(`${routePrefix}/users`, userRoutes);
 app.use(`${routePrefix}/auth`, auth);
+
+const customer = require('./routes/customer');
+app.use(`${routePrefix}/customer`, customer);
 //app.use(shopRoutes);
 
 //app.use(errorController.get404);
