@@ -17,6 +17,8 @@ router.post(
     `/`,
     [
         check("userName").exists(),
+        check("name").exists(),
+        check("userType").exists(),
         //check("email", "Please include a valid email").isEmail(),
         check("password", "Password is required").exists()
         // .bail().isLength({ min: 5 })

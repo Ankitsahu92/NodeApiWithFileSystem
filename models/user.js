@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const generic = require("../util/output.service");
-const p = path.join(path.dirname(__dirname), "data", "user.json");
+const p = path.join(path.dirname(__dirname), "data", "users.json");
 
 const getFromFile = (cb) => {
     fs.readFile(p, (err, fileContent) => {
@@ -41,13 +41,14 @@ module.exports = class User {
                 const checkUserNameExist = item.find((p) => p.userName === this.userName);
                 if (checkUserNameExist) {
                     cb(generic.jsonRes(400, "User Name already exists!!!"));
+                    return
                 } else {
                     this.id = uuid();
                     item.push(this);
                     fs.writeFile(p, JSON.stringify(item), (err) => {
                         cb(generic.jsonRes(400, "Something went wrong!!!"));
                     });
-                    cb(generic.jsonRes(200, "Record saved successfully!!!", this.id));
+                    cb(generic.jsonRes(200, "Record saved successfully!!!", { id: this.id }));
                 }
             }
         });
@@ -121,7 +122,6 @@ module.exports = class User {
                         userType: user.userType
                     },
                 };
-                console.log(user, "payload");
                 jwt.sign(
                     payload,
                     config.get('jwtSecret'),
