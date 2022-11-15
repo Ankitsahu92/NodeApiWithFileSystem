@@ -84,7 +84,6 @@ module.exports = class User {
     static updateUserDetailsById(userObj, cb) {
         getFromFile((item) => {
             const findIndex = item.findIndex((p) => p.id === userObj.id);
-            console.log("findIndex", findIndex);
             if (findIndex >= 0) {
                 const finditem = item[findIndex];
                 Object.keys(userObj).map(k => finditem[k] = userObj[k]);
@@ -110,7 +109,6 @@ module.exports = class User {
                     cb(generic.jsonRes(400, "Invalid credentials!!!"));
                 }
 
-                console.log("user", user);
                 const isMatch = await bcrypt.compare(userObj.password, user.password);
                 if (!isMatch) {
                     cb(generic.jsonRes(400, "Invalid credentials!!!"));
@@ -123,7 +121,7 @@ module.exports = class User {
                         userType: user.userType
                     },
                 };
-
+                console.log(user, "payload");
                 jwt.sign(
                     payload,
                     config.get('jwtSecret'),

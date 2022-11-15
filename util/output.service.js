@@ -1,23 +1,23 @@
-class ThrowResponse{
-    jsonRes(status,msg,data) {
+class ThrowResponse {
+    jsonRes(status, msg, data, errors = null) {
         const jsonData = {
             "status": status ? status : 200,
             "msg": msg ? msg : "",
+            "errors": errors ? errors : [],
             "data": data ? data : {}
         }
         return jsonData;
     }
-    nestedFormat(arrEle){
+    nestedFormat(arrEle) {
         let i, j;
         let chunk = 2;
         let temparray = [];
         for (i = 0, j = arrEle.length; i < j; i += chunk) {
             temparray.push(arrEle.slice(i, i + chunk));
         }
-        console.log('what arrr', temparray);
         return temparray;
     }
 }
 
-const  ThrowResponseObj = new ThrowResponse();
+const ThrowResponseObj = new ThrowResponse();
 module.exports = ThrowResponseObj;

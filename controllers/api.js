@@ -4,7 +4,7 @@ exports.fetchAll = async (req, res, next) => {
     const fileName = req.params.fileName;
     const general = new General(fileName);
     General.fetchAll((responseObj) => {
-        res.json(responseObj);
+        res.status(responseObj.status).json(responseObj);
     });
 };
 
@@ -13,7 +13,7 @@ exports.findById = async (req, res, next) => {
     const Id = req.params.id;
     const general = new General(fileName);
     General.findById("id", Id, (responseObj) => {
-        res.json(responseObj);
+        res.status(responseObj.status).json(responseObj);
     });
 };
 
@@ -22,7 +22,7 @@ exports.AddUpdate = async (req, res, next) => {
     const body = req.body;
     const general = new General(fileName);
     General.AddUpdate(body, (responseObj) => {
-        res.json(responseObj);
+        res.status(responseObj.status).json(responseObj);
     });
 };
 
@@ -31,6 +31,6 @@ exports.deleteById = async (req, res, next) => {
     const Id = req.params.id;
     const general = new General(fileName);
     General.deleteById("id", Id, (responseObj) => {
-        res.json(responseObj);
+        res.status(responseObj.status).json(responseObj);
     });
 };

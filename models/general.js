@@ -38,7 +38,6 @@ module.exports = class General {
                     Object.keys(obj).map((k) => (finditem[k] = obj[k]));
                     const updateditem = [...item];
                     updateditem[findIndex] = finditem;
-                    console.log(finditem, "finditem", p);
                     fs.writeFile(p, JSON.stringify(updateditem), (err) => {
                         if (err) {
                             cb(generic.jsonRes(400, "Something went wrong!!!"));
