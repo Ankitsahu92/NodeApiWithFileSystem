@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(`${routePrefix}/users`, userRoutes);
 app.use(`${routePrefix}/auth`, auth);
 //app.use(`${routePrefix}/accounts`, accounts);
-app.use(`${routePrefix}`, authorization, api);
+app.use(`${routePrefix}`, api);
 
 // const customer = require('./routes/customer');
 // app.use(`${routePrefix}/customer`, customer);

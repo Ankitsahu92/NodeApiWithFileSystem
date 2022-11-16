@@ -18,6 +18,9 @@ exports.Add = async (req, res, next) => {
 exports.Get = (req, res, next) => {
 
     User.fetchAll((item) => {
+        item.map(i => {
+            delete i.password;
+        })
         res.status(200).json(generic.jsonRes(200, "", item));
     });
 };
@@ -28,6 +31,7 @@ exports.GetByID = (req, res, next) => {
         if (!item) {
             res.status(400).json(generic.jsonRes(404, "record not found!!!"));
         }
+        delete item.password;
         res.status(200).json(generic.jsonRes(200, "", item));
     });
 };

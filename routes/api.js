@@ -14,6 +14,17 @@ router.get(
 );
 
 router.get(
+    `/:fileName/:id/:value`,
+    [
+        param("fileName", "fileName is Required").exists(),
+        param("id", "ID is Required").exists(),
+        param("value", "Value is Required").exists(),
+    ],
+    validateShema,
+    controller.findByIdAndValue
+);
+
+router.get(
     `/:fileName/:id`,
     [
         param("fileName", "fileName is Required").exists(),
@@ -27,8 +38,8 @@ router.post(
     `/:fileName/`,
     [
         param("fileName", "fileName is Required").exists(),
-        check("userName").exists(),
-        check("password", "Password is required").exists(),
+        // check("userName").exists(),
+        // check("password", "Password is required").exists(),
         // .bail().isLength({ min: 5 })
         // .withMessage('Password must be at least 5 chars long').bail()
         // .matches(/\d/)

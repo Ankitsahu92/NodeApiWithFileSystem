@@ -76,7 +76,9 @@ module.exports = class General {
         }
 
         getFromFile((item) => {
-            const finditem = item.find((p) => p[id] === value);
+            const finditem = id === "id" ?
+                item.find((p) => p[id] === value) :
+                item.filter((p) => p[id] === value);
             cb(generic.jsonRes(200, "Record Retrived Successfully!!!", finditem));
         });
     }
