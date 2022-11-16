@@ -1,1 +1,17 @@
-[{"id":"eddb312b-dfd8-4c62-ad69-36d36e50f074","name":"admin","userName":"admin","password":"$2a$10$rL9tmWteUHw1GJ4vYjveP.7PQUG6p8kY0X8mW.uUh7ECfCWjkAGgS","isActive":true,"userType":"customer"}]
+[
+  {
+    "id": "20351780-9f60-42c4-aed9-37c24b45dcb4",
+    "name": "ankit",
+    "userName": "ankit",
+    "password": "$2a$10$I.WLTl3C.Rsaf3141yOmo.CO2B9vAsJYeDUKBhAFezqlcqhUdWOJ6",
+    "isActive": true,
+    "userType": "customer",
+    "customerId": "161122071182",
+    "Phone": "sdasdasdas",
+    "PAN": "asdasdas",
+    "Aadhar": "dsadsadas",
+    "UploadPAN": "dsadasd",
+    "UploadAadhar": "asdsadsad",
+    "SecurityQuestionAnswer": "asdasdasdas"
+  }
+]

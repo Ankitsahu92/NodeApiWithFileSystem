@@ -16,6 +16,7 @@ exports.Add = async (req, res, next) => {
 };
 
 exports.Get = (req, res, next) => {
+
     User.fetchAll((item) => {
         res.status(200).json(generic.jsonRes(200, "", item));
     });

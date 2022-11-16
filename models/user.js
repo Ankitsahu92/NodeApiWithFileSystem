@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 const generic = require("../util/output.service");
 const p = path.join(path.dirname(__dirname), "data", "users.json");
+const moment = require("moment");
 
 const getFromFile = (cb) => {
     fs.readFile(p, (err, fileContent) => {
@@ -44,6 +45,8 @@ module.exports = class User {
                     return
                 } else {
                     this.id = uuid();
+                    console.log("DDMMYYHHMMSS", moment().format("DDMMYYHHMMSS"));
+                    this.customerId = moment().format("DDMMYYHHMMSS");
                     item.push(this);
                     fs.writeFile(p, JSON.stringify(item), (err) => {
                         cb(generic.jsonRes(400, "Something went wrong!!!"));
