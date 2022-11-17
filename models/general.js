@@ -15,9 +15,7 @@ const getFromFile = (cb) => {
 };
 
 const initializePath = (fileName) => {
-    if (!p) {
-        p = path.join(path.dirname(__dirname), "data", `${fileName}.json`);
-    }
+    p = path.join(path.dirname(__dirname), "data", `${fileName}.json`);
 };
 
 module.exports = class General {
