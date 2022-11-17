@@ -1,1 +1,46 @@
-[{"accountNumber":"17112022091167","id":"a7d7e163-2cf0-4bae-8d17-06d01f75bfd9","initialDeposit":"500","typeOfAccount":"SB","userID":"78b054ca-4a50-4228-81fa-c2000f4b073d","isEnabled":true}]
+[
+  {
+    "accountNumber": "17112022091167",
+    "id": "Ankit1",
+    "initialDeposit": 450,
+    "typeOfAccount": "SB",
+    "userID": "78b054ca-4a50-4228-81fa-c2000f4b073d",
+    "isEnabled": true,
+    "transaction": [
+      {
+        "date": "2022-11-17T11:19:15.223Z",
+        "amount": 50,
+        "transactionType": "DR",
+        "referenceNumber": "171122161122",
+        "comment": "50",
+        "tranferAccount": "17112022121193"
+      }
+    ]
+  },
+  {
+    "accountNumber": "17112022121195",
+    "id": "Ankit12 SB",
+    "initialDeposit": 500,
+    "typeOfAccount": "SB",
+    "userID": "a28b2d6e-865b-417e-954b-75dabc6c0957",
+    "isEnabled": true
+  },
+  {
+    "accountNumber": "17112022121193",
+    "id": "Ankit3 CA",
+    "initialDeposit": 550,
+    "typeOfAccount": "CA",
+    "userID": "a28b2d6e-865b-417e-954b-75dabc6c0957",
+    "isEnabled": true,
+    "transaction": [
+      {
+        "date": "2022-11-17T11:19:15.223Z",
+        "amount": 50,
+        "transactionType": "CR",
+        "referenceNumber": "171122161122",
+        "comment": "50",
+        "tranferAccount": "17112022091167"
+      }
+    ]
+  }
+]
