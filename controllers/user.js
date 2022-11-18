@@ -11,13 +11,17 @@ exports.Add = async (req, res, next) => {
     const userType = req.body.userType;
     const item = new User(null, name, userName, password, isActive, userType);
     item.save((resp) => {
-        res.json(resp);
+        res.status(resp.status).json(resp);
     });
 };
 
 exports.Get = (req, res, next) => {
+
     User.fetchAll((item) => {
-        res.json(generic.jsonRes(200, "", item));
+        item.map(i => {
+            delete i.password;
+        })
+        res.status(200).json(generic.jsonRes(200, "", item));
     });
 };
 
@@ -25,15 +29,16 @@ exports.GetByID = (req, res, next) => {
     const Id = req.params.id;
     User.findById(Id, item => {
         if (!item) {
-            res.json(generic.jsonRes(404, "record not found!!!"));
+            res.status(400).json(generic.jsonRes(404, "record not found!!!"));
         }
-        res.json(generic.jsonRes(200, "", item));
+        delete item.password;
+        res.status(200).json(generic.jsonRes(200, "", item));
     });
 };
 
 exports.deleteById = (req, res, next) => {
     const id = req.params.id;
-    User.deleteById(id, resp => res.json(resp));
+    User.deleteById(id, resp => res.status(resp.status).json(resp));
 };
 
 exports.updateUser = async (req, res, next) => {
@@ -42,12 +47,11 @@ exports.updateUser = async (req, res, next) => {
         const salt = await bcrypt.genSalt(10);
         body.password = await bcrypt.hash(body.password, salt);
     }
-    console.log(body, "body");
-    User.updateUserDetailsById(body, resp => res.json(resp));
+    User.updateUserDetailsById(body, resp => res.status(resp.status).json(resp));
 };
 
 
 exports.auth = async (req, res, next) => {
     const body = req.body;
-    User.auth(body, resp => res.json(resp));
+    User.auth(body, resp => res.status(resp.status).json(resp));
 };

@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('config');
 const generic = require("../util/output.service");
-const p = path.join(path.dirname(__dirname), "data", "user.json");
+const p = path.join(path.dirname(__dirname), "data", "users.json");
+const moment = require("moment");
 
 const getFromFile = (cb) => {
     fs.readFile(p, (err, fileContent) => {
@@ -41,13 +42,16 @@ module.exports = class User {
                 const checkUserNameExist = item.find((p) => p.userName === this.userName);
                 if (checkUserNameExist) {
                     cb(generic.jsonRes(400, "User Name already exists!!!"));
+                    return
                 } else {
                     this.id = uuid();
+                    console.log("DDMMYYHHMMSS", moment().format("DDMMYYHHMMSS"));
+                    this.customerId = moment().format("DDMMYYHHMMSS");
                     item.push(this);
                     fs.writeFile(p, JSON.stringify(item), (err) => {
                         cb(generic.jsonRes(400, "Something went wrong!!!"));
                     });
-                    cb(generic.jsonRes(200, "Record saved successfully!!!", this.id));
+                    cb(generic.jsonRes(200, "Record saved successfully!!!", { id: this.id }));
                 }
             }
         });
@@ -84,7 +88,6 @@ module.exports = class User {
     static updateUserDetailsById(userObj, cb) {
         getFromFile((item) => {
             const findIndex = item.findIndex((p) => p.id === userObj.id);
-            console.log("findIndex", findIndex);
             if (findIndex >= 0) {
                 const finditem = item[findIndex];
                 Object.keys(userObj).map(k => finditem[k] = userObj[k]);
@@ -110,7 +113,6 @@ module.exports = class User {
                     cb(generic.jsonRes(400, "Invalid credentials!!!"));
                 }
 
-                console.log("user", user);
                 const isMatch = await bcrypt.compare(userObj.password, user.password);
                 if (!isMatch) {
                     cb(generic.jsonRes(400, "Invalid credentials!!!"));
@@ -123,7 +125,6 @@ module.exports = class User {
                         userType: user.userType
                     },
                 };
-
                 jwt.sign(
                     payload,
                     config.get('jwtSecret'),

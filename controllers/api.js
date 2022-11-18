@@ -1,7 +1,7 @@
 const General = require("../models/general");
-const fileName = "accounts";
 
 exports.fetchAll = async (req, res, next) => {
+    const fileName = req.params.fileName;
     const general = new General(fileName);
     General.fetchAll((responseObj) => {
         res.status(responseObj.status).json(responseObj);
@@ -9,6 +9,7 @@ exports.fetchAll = async (req, res, next) => {
 };
 
 exports.findById = async (req, res, next) => {
+    const fileName = req.params.fileName;
     const Id = req.params.id;
     const general = new General(fileName);
     General.findById("id", Id, (responseObj) => {
@@ -16,7 +17,29 @@ exports.findById = async (req, res, next) => {
     });
 };
 
+exports.findById = async (req, res, next) => {
+    const fileName = req.params.fileName;
+    const Id = req.params.id;
+    const general = new General(fileName);
+    General.findById("id", Id, (responseObj) => {
+        res.status(responseObj.status).json(responseObj);
+    });
+};
+
+
+exports.findByIdAndValue = async (req, res, next) => {
+    const fileName = req.params.fileName;
+    const Id = req.params.id;
+    const value = req.params.value;
+    const general = new General(fileName);
+    General.findById(Id, value, (responseObj) => {
+        res.status(responseObj.status).json(responseObj);
+    });
+};
+
+
 exports.AddUpdate = async (req, res, next) => {
+    const fileName = req.params.fileName;
     const body = req.body;
     const general = new General(fileName);
     General.AddUpdate(body, (responseObj) => {
@@ -25,6 +48,7 @@ exports.AddUpdate = async (req, res, next) => {
 };
 
 exports.deleteById = async (req, res, next) => {
+    const fileName = req.params.fileName;
     const Id = req.params.id;
     const general = new General(fileName);
     General.deleteById("id", Id, (responseObj) => {

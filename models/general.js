@@ -15,9 +15,7 @@ const getFromFile = (cb) => {
 };
 
 const initializePath = (fileName) => {
-    if (!p) {
-        p = path.join(path.dirname(__dirname), "data", `${fileName}.json`);
-    }
+    p = path.join(path.dirname(__dirname), "data", `${fileName}.json`);
 };
 
 module.exports = class General {
@@ -38,7 +36,6 @@ module.exports = class General {
                     Object.keys(obj).map((k) => (finditem[k] = obj[k]));
                     const updateditem = [...item];
                     updateditem[findIndex] = finditem;
-                    console.log(finditem, "finditem", p);
                     fs.writeFile(p, JSON.stringify(updateditem), (err) => {
                         if (err) {
                             cb(generic.jsonRes(400, "Something went wrong!!!"));
@@ -77,7 +74,9 @@ module.exports = class General {
         }
 
         getFromFile((item) => {
-            const finditem = item.find((p) => p[id] === value);
+            const finditem = id === "id" ?
+                item.find((p) => p[id] === value) :
+                item.filter((p) => p[id] === value);
             cb(generic.jsonRes(200, "Record Retrived Successfully!!!", finditem));
         });
     }

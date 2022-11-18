@@ -13,11 +13,11 @@ exports.registration = async (req, res, next) => {
     const userType = req.body.userType;
     const item = new User(null, name, userName, password, isActive, userType);
     item.save((resp) => {
-        res.json(resp);
+        res.status(resp.status).json(resp);
     });
 };
 
 exports.authenticate = async (req, res, next) => {
     const body = req.body;
-    User.auth(body, resp => res.json(resp));
+    User.auth(body, resp => res.status(resp.status).json(resp));
 };
